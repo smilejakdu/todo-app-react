@@ -38,7 +38,7 @@ const Login = (props) => {
             data: { access },
           } = res;
           console.log(access);
-          localStorage.setItem("jakdu", access);
+          localStorage.setItem("token", access);
         }
         props.history.push("/");
       })
