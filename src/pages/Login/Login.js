@@ -3,6 +3,7 @@ import Header from "../../component/Header/Header";
 import Modal from "../../component/Modal/Modal";
 import request from "../../util/request";
 import { Container, InputForm, Input, Button } from "./Login.styled";
+import { Redirect } from "react-router-dom";
 
 const Login = (props) => {
   const [modalShow, setModalShow] = useState(false);
@@ -26,6 +27,9 @@ const Login = (props) => {
   useEffect(() => {
     console.log(props);
     console.log(localStorage.getItem("token"));
+    if (localStorage.getItem("token")) {
+      props.history.push("/");
+    }
   }, []);
 
   const handleClick = () => {
