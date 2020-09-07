@@ -23,6 +23,11 @@ const Login = (props) => {
     }
   };
 
+  useEffect(() => {
+    console.log(props);
+    console.log(localStorage.getItem("token"));
+  }, []);
+
   const handleClick = () => {
     request
       .post("/user/signin", {
@@ -44,7 +49,9 @@ const Login = (props) => {
       })
       .catch((err) => {
         console.log(err);
-        alert("에러");
+        setModalShow(true);
+        setEmail("");
+        setPassword("");
       });
   };
 
@@ -54,15 +61,15 @@ const Login = (props) => {
       <div style={{ textAlign: "center" }}></div>
       {modalShow && (
         <Modal
+          title={"LOGIN"}
           isOpen={ModalShowOpen}
           close={ModalShowClose}
-          text={"아이디와 비밀번호를 확인하세요"}
+          text={"check your email , username , password"}
         ></Modal>
       )}
       <Container>
         <InputForm>
           <h1>LOGIN</h1>
-          {/* <form onSubmit={handleSubmit}> */}
           <div className="form-group">
             <Input
               type="text"
@@ -77,7 +84,7 @@ const Login = (props) => {
           <div className="form-group">
             <Input
               type="password"
-              placeholder="비밀번호"
+              placeholder="password"
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

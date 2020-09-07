@@ -8,6 +8,13 @@ import {
 import { Link } from "react-router-dom";
 
 const Header = ({ isAuthenticated, username }) => {
+  const logoutBtnClick = () => {
+    console.log(localStorage.getItem("token"));
+    localStorage.removeItem("token");
+    console.log(localStorage.getItem("token"));
+    window.location.reload();
+  };
+
   return (
     <div>
       <HeaderBorder>
@@ -20,7 +27,7 @@ const Header = ({ isAuthenticated, username }) => {
         </HeaderTitle>
         <LoginRegisterBorder>
           {isAuthenticated ? (
-            <div>Logout</div>
+            <div onClick={logoutBtnClick}>Logout</div>
           ) : (
             <div>
               <LoginSignupNav to="/login">Login</LoginSignupNav>

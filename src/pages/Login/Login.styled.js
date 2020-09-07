@@ -7,6 +7,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const InputForm = styled.div`
   padding-top: 60px;
   margin: 0 auto;

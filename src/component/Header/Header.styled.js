@@ -27,6 +27,13 @@ const LoginRegisterBorder = styled.div`
   display: flex;
   right: 0;
   padding-right: 10px;
+
+  div {
+    cursor: pointer;
+    &:hover {
+      color: ${palette.orange[2]};
+    }
+  }
 `;
 
 const LoginSignupNav = styled(NavLink)`

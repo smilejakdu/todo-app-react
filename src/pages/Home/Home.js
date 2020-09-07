@@ -3,6 +3,7 @@ import Header from "../../component/Header/Header";
 import request from "../../util/request";
 const Home = (props) => {
   const [username, setUsername] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -17,6 +18,7 @@ const Home = (props) => {
             data: { data },
           } = res;
           setUsername(data);
+          setIsAuthenticated(true);
         })
         .catch((err) => {
           console.log("err : ", err);
@@ -30,9 +32,8 @@ const Home = (props) => {
 
   return (
     <div>
-      <Header />
-      hi
-      <div>{username}</div>
+      <Header isAuthenticated={isAuthenticated} username={username} />
+      {username ? <div> hi ^^{username} </div> : <div>hi ^^ users</div>}
     </div>
   );
 };

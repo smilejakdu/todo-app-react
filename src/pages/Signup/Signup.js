@@ -39,7 +39,10 @@ const Signup = (props) => {
       })
       .catch((error) => {
         console.log(error);
-        alert("에러");
+        setModalShow(true);
+        setEmail("");
+        setUsername("");
+        setPassword("");
       });
   };
 
@@ -49,14 +52,15 @@ const Signup = (props) => {
       <div style={{ textAlign: "center" }}></div>
       {modalShow && (
         <Modal
+          title={"SIGNUP"}
           isOpen={ModalShowOpen}
           close={ModalShowClose}
-          text={"아이디와 비밀번호를 확인하세요"}
+          text={"check your email , username , password"}
         ></Modal>
       )}
       <Container>
         <InputForm>
-          <h1>LOGIN</h1>
+          <h1>SIGNUP</h1>
           {/* <form onSubmit={handleSubmit}> */}
           <div className="form-group">
             <Input
@@ -83,7 +87,7 @@ const Signup = (props) => {
           <div className="form-group">
             <Input
               type="password"
-              placeholder="비밀번호"
+              placeholder="password"
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -92,7 +96,7 @@ const Signup = (props) => {
             />
           </div>
           <Button type="button" onClick={handleClick}>
-            Login
+            Signup
           </Button>
           {/* </form> */}
         </InputForm>
