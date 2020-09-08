@@ -1,0 +1,34 @@
+.board_box {
+    position: relative;
+    margin: 30px;
+}
+
+.board_title {
+    all: unset;
+    padding: 0 20px;
+    margin: 20px 0px;
+    font-size: 14px;
+    border-bottom: 1px solid black;
+}
+
+.board_content {
+    all: unset;
+    margin: 20px 0;
+    overflow-y: auto;
+    font-size: 14px;
+    padding: 0px 20px;
+    width: 80%;
+    border-bottom: 1px solid black;
+}
+
+.board_btn {
+    justify-content: end;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    color: black;
+    border: 1px solid black;
+    color: white;
+    background: black;
+    margin: 20px 10px;
+}
