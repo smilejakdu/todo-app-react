@@ -95,13 +95,34 @@ const Home = () => {
       });
   };
 
+  const handleTotalTodo = () => {};
+
+  const handleMyTodo = () => {
+    request
+      .get("/todos/mytodo", {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        let {
+          data: { data },
+        } = res;
+        console.log(data);
+        setInformation(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <Header isAuthenticated={isAuthenticated} username={username} />
       <BoardForm />
       <div className="todo_tab">
-        <div>total todo</div>
-        <div>my todo</div>
+        <div onClick={handleTotalTodo}>total todo</div>
+        <div onClick={handleMyTodo}>my todo</div>
       </div>
       <div>
         <BoardInfoList

@@ -5,7 +5,6 @@ import {
   LoginRegisterBorder,
   LoginSignupNav,
 } from "./Header.styled";
-import { Link } from "react-router-dom";
 
 const Header = ({ isAuthenticated, username }) => {
   const logoutBtnClick = () => {
