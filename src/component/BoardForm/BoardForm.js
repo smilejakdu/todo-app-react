@@ -12,8 +12,13 @@ const BoardForm = () => {
       title: title,
       content: content,
     };
+
     request
-      .post("", data)
+      .post("/todos/", data, {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         console.log(res);
       })

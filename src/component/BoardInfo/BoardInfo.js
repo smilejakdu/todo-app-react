@@ -1,43 +1,45 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "./BoardInfo.scss";
 
-const BoardInfo = (props) => {
-  console.log(props);
+const BoardInfo = ({ key, info, onRemove, onUpdate }) => {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const handleRemove = () => {
-    const { info, onRemove } = this.props;
-    onRemove(info.id);
+    if (localStorage.getItem("token")) {
+      onRemove(info.id);
+    }
   };
 
   const handleToggleEdit = () => {
-    // true -> false
-    // onUpdate
-    // false -> true
-    // state 에 info 값들 넣어주기
-    const { info, onUpdate } = this.props;
-    if (editing) {
-      setTitle(title);
-      setContent(content);
-    } else {
-      setTitle(info.title);
-      setContent(info.content);
+    if (localStorage.getItem("token")) {
+      if (editing) {
+        setTitle(title);
+        setContent(content);
+        let load = {
+          title: title,
+          content: content,
+        };
+        onUpdate(info.id, load);
+      } else {
+        setTitle(info.title);
+        setContent(info.content);
+        let load = {
+          title: info.title,
+          content: info.content,
+        };
+        onUpdate(info.id, load);
+      }
+      setEditing(!editing);
     }
-    setEditing(!editing);
-  };
-
-  const handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
     <div className="board_box">
       {editing ? (
         <Fragment>
+          <div>{info.email}</div>
           <div>
             <input
               name="title"
@@ -55,10 +57,9 @@ const BoardInfo = (props) => {
         </Fragment>
       ) : (
         <Fragment>
-          <a href={content}>
-            <div>{title}</div>
-            <div>{content}</div>
-          </a>
+          <div>{info.email}</div>
+          <div>{info.title}</div>
+          <div>{info.content}</div>
         </Fragment>
       )}
       <button className="board_btn" onClick={handleRemove}>

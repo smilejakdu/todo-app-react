@@ -5,7 +5,7 @@ import "./Home.scss";
 import BoardForm from "../../component/BoardForm/BoardForm";
 import BoardInfoList from "../../component/BoardInfoList/BoardInfoList";
 
-const Home = (props) => {
+const Home = () => {
   const [username, setUsername] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [information, setInformation] = useState([]);
@@ -33,43 +33,61 @@ const Home = (props) => {
 
   useEffect(() => {
     request
-      .get("/todos")
-      .then((res) => res.json())
+      .get("/todos/")
       .then((res) => {
         let {
           data: { data },
         } = res;
-        console.log(data);
-        setInformation(data);
+        console.log(data.data);
+        setInformation(data.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [information]);
+  }, []);
 
   const handleRemove = (id) => {
+    console.log("home handleRemove : ", id);
     request
-      .delete("" + id)
+      .delete(`/todos/${id}`, {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         console.log(res);
+        handleGetData();
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleUpdate = (id) => {
-    let data = {
-      title: data.title,
-      content: data.content,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+  const handleGetData = () => {
     request
-      .post("" + id, data)
+      .get("/todos/")
+      .then((res) => {
+        let {
+          data: { data },
+        } = res;
+        setInformation(data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleUpdate = (id, data) => {
+    console.log("Home Update : ", id, data);
+    request
+      .post(`/todos/${id}`, data, {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         console.log(res);
+        handleGetData();
       })
       .catch((err) => {
         console.log(err);
