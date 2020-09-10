@@ -66,7 +66,7 @@ const BoardForm = () => {
           </div>
           <div>
             <button className="board_btn" type="submit" onClick={handleClick}>
-              버튼
+              Button
             </button>
           </div>
         </form>

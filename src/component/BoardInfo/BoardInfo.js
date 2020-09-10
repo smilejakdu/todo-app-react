@@ -1,12 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import {
-  BoardBox,
-  BoardData,
-  BtnBorder,
-  BoardBtn,
-  EmailBorder,
-  TitleContentLabel,
-} from "./BoardInfo.styled";
+import { BoardBox, BtnBorder, BoardBtn, EmailBorder } from "./BoardInfo.styled";
 
 const BoardInfo = ({ key, info, onRemove, onUpdate, username }) => {
   const [editing, setEditing] = useState(false);
@@ -44,7 +37,7 @@ const BoardInfo = ({ key, info, onRemove, onUpdate, username }) => {
 
   return (
     <BoardBox>
-      <EmailBorder>{info.email}</EmailBorder>
+      <EmailBorder>{info.username}</EmailBorder>
       {editing ? (
         <>
           <input
@@ -66,7 +59,7 @@ const BoardInfo = ({ key, info, onRemove, onUpdate, username }) => {
           <div>{info.content}</div>
         </>
       )}
-      {username === info.email ? (
+      {username === info.username ? (
         <BtnBorder>
           <BoardBtn onClick={handleRemove}>삭제</BoardBtn>
           <BoardBtn onClick={handleToggleEdit}>

@@ -22,6 +22,7 @@ const Home = () => {
           let {
             data: { data },
           } = res;
+          console.log(data);
           setUsername(data);
           setIsAuthenticated(true);
         })
@@ -98,6 +99,10 @@ const Home = () => {
     <div>
       <Header isAuthenticated={isAuthenticated} username={username} />
       <BoardForm />
+      <div className="todo_tab">
+        <div>total todo</div>
+        <div>my todo</div>
+      </div>
       <div>
         <BoardInfoList
           className="board_list"

@@ -22,3 +22,20 @@
     padding: 10px 20px;
     border-radius: 5px;
 }
+
+.todo_tab {
+    display: flex;
+    margin: 30px;
+
+    div {
+        border: 1px solid orange;
+        border-radius: 20px;
+        padding: 10px 20px;
+        margin-right: 20px;
+
+        &:hover {
+            cursor: pointer;
+            background: orangered;
+        }
+    }
+}

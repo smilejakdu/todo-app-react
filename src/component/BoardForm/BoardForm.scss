@@ -19,17 +19,16 @@
 
 .board_btn {
     padding: 10px 20px;
-    font-size: 14px;
     border-radius: 5px;
+    font-size: 20px;
     color: black;
-    border: 1px solid black;
-    color: white;
-    background: black;
+    border: 1px solid orange;
+    border-radius: 20px;
+    background: white;
     margin: 20px 10px;
 
     &:hover {
-        background: white;
-        color: black;
+        background: orangered;
         cursor: pointer;
     }
 }

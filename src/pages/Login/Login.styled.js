@@ -49,7 +49,7 @@ const Input = styled.input`
   display: flex;
   border: none;
   outline: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${palette.orange[2]};
   background: #f2f3f7;
   width: 80%;
   margin: 30px;
