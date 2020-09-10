@@ -1,7 +1,14 @@
 import React, { Fragment, useState, useEffect } from "react";
-import "./BoardInfo.scss";
+import {
+  BoardBox,
+  BoardData,
+  BtnBorder,
+  BoardBtn,
+  EmailBorder,
+  TitleContentLabel,
+} from "./BoardInfo.styled";
 
-const BoardInfo = ({ key, info, onRemove, onUpdate }) => {
+const BoardInfo = ({ key, info, onRemove, onUpdate, username }) => {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -36,39 +43,40 @@ const BoardInfo = ({ key, info, onRemove, onUpdate }) => {
   };
 
   return (
-    <div className="board_box">
+    <BoardBox>
+      <EmailBorder>{info.email}</EmailBorder>
       {editing ? (
-        <Fragment>
-          <div>{info.email}</div>
-          <div>
-            <input
-              name="title"
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-            />
-          </div>
-          <div>
-            <input
-              name="content"
-              onChange={(e) => setContent(e.target.value)}
-              value={content}
-            />
-          </div>
-        </Fragment>
+        <>
+          <input
+            name="title"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          />
+          <input
+            name="content"
+            onChange={(e) => setContent(e.target.value)}
+            value={content}
+          />
+        </>
       ) : (
-        <Fragment>
-          <div>{info.email}</div>
+        <>
+          <h2>title</h2>
           <div>{info.title}</div>
+          <h2>content</h2>
           <div>{info.content}</div>
-        </Fragment>
+        </>
       )}
-      <button className="board_btn" onClick={handleRemove}>
-        삭제
-      </button>
-      <button className="board_btn" onClick={handleToggleEdit}>
-        {editing ? "적용" : "수정"}
-      </button>
-    </div>
+      {username === info.email ? (
+        <BtnBorder>
+          <BoardBtn onClick={handleRemove}>삭제</BoardBtn>
+          <BoardBtn onClick={handleToggleEdit}>
+            {editing ? "적용" : "수정"}
+          </BoardBtn>
+        </BtnBorder>
+      ) : (
+        <div></div>
+      )}
+    </BoardBox>
   );
 };
 

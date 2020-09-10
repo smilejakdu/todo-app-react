@@ -4,25 +4,20 @@
 }
 
 .board_title {
-    all: unset;
-    padding: 0 20px;
-    margin: 20px 0px;
-    font-size: 14px;
-    border-bottom: 1px solid black;
+    font-size: 35px;
+    border: none;
+    resize: none;
+    outline: none;
 }
 
 .board_content {
-    all: unset;
-    margin: 20px 0;
-    overflow-y: auto;
-    font-size: 14px;
-    padding: 0px 20px;
-    width: 80%;
-    border-bottom: 1px solid black;
+    resize: none;
+    border: none;
+    outline: none;
+    font-size: 35px;
 }
 
 .board_btn {
-    justify-content: end;
     padding: 10px 20px;
     font-size: 14px;
     border-radius: 5px;
@@ -31,4 +26,10 @@
     color: white;
     background: black;
     margin: 20px 10px;
+
+    &:hover {
+        background: white;
+        color: black;
+        cursor: pointer;
+    }
 }

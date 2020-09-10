@@ -101,6 +101,7 @@ const Home = () => {
       <div>
         <BoardInfoList
           className="board_list"
+          username={username}
           data={information}
           onRemove={handleRemove}
           onUpdate={handleUpdate}

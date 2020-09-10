@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import "./BoardInfoList.scss";
 import BoardInfo from "../BoardInfo/BoardInfo";
+import { BoardList } from "./BoardInfoList.styled";
 
-const BoardInfoList = ({ data, onRemove, onUpdate }) => {
+const BoardInfoList = ({ username, data, onRemove, onUpdate }) => {
   const list = data.map((info) => (
-    <div className="board_list">
+    <BoardList>
       <BoardInfo
         key={info.id}
         info={info}
+        username={username}
         onRemove={onRemove}
         onUpdate={onUpdate}
       />
-    </div>
+    </BoardList>
   ));
   return <div>{list}</div>;
 };
