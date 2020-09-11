@@ -3,6 +3,7 @@ import BoardInfo from "../BoardInfo/BoardInfo";
 import { BoardList } from "./BoardInfoList.styled";
 
 const BoardInfoList = ({ username, data, onRemove, onUpdate }) => {
+  console.log("BoardInfoList : ", data);
   const list = data.map((info) => (
     <BoardList>
       <BoardInfo
@@ -16,4 +17,5 @@ const BoardInfoList = ({ username, data, onRemove, onUpdate }) => {
   ));
   return <div>{list}</div>;
 };
+
 export default BoardInfoList;

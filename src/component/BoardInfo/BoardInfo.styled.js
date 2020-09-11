@@ -50,6 +50,72 @@ const EmailBorder = styled.div`
   font-style: border;
 `;
 
+const Date = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+`;
+
+const FormGroup = styled.div`
+  position: relative;
+  padding: 15px 0 0;
+  margin-left: 30px;
+  margin-top: 10px;
+  width: 50%;
+`;
+
+const FormFieldInput = styled.input`
+  font-family: inherit;
+  width: 50%;
+  border: 0;
+  border-bottom: 2px solid $gray;
+  outline: 0;
+  font-size: 1.3rem;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+
+  &:focus {
+    ~ .form__label {
+      position: absolute;
+      top: 0;
+      display: block;
+      transition: 0.2s;
+      font-size: 1rem;
+      color: ${palette.orange[7]};
+      font-weight: 700;
+    }
+
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+  }
+
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
+`;
+
+const FormLabel = styled.label`
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: ${palette.orange[7]};
+`;
+
 export {
   BoardBox,
   BoardData,
@@ -57,4 +123,8 @@ export {
   BoardBtn,
   EmailBorder,
   TitleContentLabel,
+  Date,
+  FormGroup,
+  FormFieldInput,
+  FormLabel,
 };

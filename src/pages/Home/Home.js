@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Header from "../../component/Header/Header";
 import request from "../../util/request";
+import axios from "axios";
 import "./Home.scss";
 import BoardForm from "../../component/BoardForm/BoardForm";
 import BoardInfoList from "../../component/BoardInfoList/BoardInfoList";
@@ -22,7 +23,6 @@ const Home = () => {
           let {
             data: { data },
           } = res;
-          console.log(data);
           setUsername(data);
           setIsAuthenticated(true);
         })
@@ -39,7 +39,6 @@ const Home = () => {
         let {
           data: { data },
         } = res;
-        console.log(data.data);
         setInformation(data.data);
       })
       .catch((err) => {
@@ -56,7 +55,6 @@ const Home = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         handleGetData();
       })
       .catch((err) => {
@@ -87,16 +85,12 @@ const Home = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         handleGetData();
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  const handleTotalTodo = () => {};
-
   const handleMyTodo = () => {
     request
       .get("/todos/mytodo", {
@@ -108,11 +102,36 @@ const Home = () => {
         let {
           data: { data },
         } = res;
-        console.log(data);
-        setInformation(data);
+        setInformation(data.data);
       })
       .catch((err) => {
         console.log(err);
+      });
+  };
+
+  const handleOnInputChange = (event) => {
+    const query = event.target.value;
+    if (!query) {
+      handleGetData();
+    } else {
+      fetchSearchResults(query);
+    }
+  };
+
+  const fetchSearchResults = (query) => {
+    const searchUrl = `/todos/search?query=${query}`;
+    request
+      .get(searchUrl)
+      .then((res) => {
+        let {
+          data: { data },
+        } = res;
+        setInformation(data.data);
+      })
+      .catch((error) => {
+        if (axios.isCancel(error) || error) {
+          console.log("error : ", error);
+        }
       });
   };
 
@@ -120,9 +139,23 @@ const Home = () => {
     <div>
       <Header isAuthenticated={isAuthenticated} username={username} />
       <BoardForm />
+      <div class="form__group field">
+        <input
+          type="input"
+          class="form__field"
+          placeholder="Name"
+          name="name"
+          id="name"
+          onChange={handleOnInputChange}
+          required
+        />
+        <label for="name" class="form__label">
+          Search
+        </label>
+      </div>
       {localStorage.getItem("token") ? (
         <div className="todo_tab">
-          <div onClick={handleTotalTodo}>total list</div>
+          <div onClick={handleGetData}>total list</div>
           <div onClick={handleMyTodo}>my list</div>
         </div>
       ) : (
