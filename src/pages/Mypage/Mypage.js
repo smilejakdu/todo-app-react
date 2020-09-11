@@ -95,8 +95,12 @@ const Mypage = () => {
 
   return (
     <div>
-      <Header isAuthenticated={isAuthenticated} username={username} />
-      <BoardForm />
+      <div className="header_border">
+        <Header isAuthenticated={isAuthenticated} username={username} />
+      </div>
+      <div className="form_border">
+        <BoardForm />
+      </div>
       <div class="form__group field">
         <input
           type="input"

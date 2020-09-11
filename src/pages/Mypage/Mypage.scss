@@ -33,6 +33,17 @@ $gray: #9b9b9b;
     }
 }
 
+.header_border {
+    top: 0;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+}
+
+.form_border {
+    margin-top: 100px;
+}
+
 .form__label {
     position: absolute;
     top: 0;

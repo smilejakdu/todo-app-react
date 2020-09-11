@@ -2,6 +2,17 @@
     text-align: center;
 }
 
+.header_border {
+    top: 0;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+}
+
+.form_border {
+    margin-top: 100px;
+}
+
 .board_list {
     border: 1px solid black;
     width: auto;
