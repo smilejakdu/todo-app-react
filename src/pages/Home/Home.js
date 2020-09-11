@@ -120,10 +120,14 @@ const Home = () => {
     <div>
       <Header isAuthenticated={isAuthenticated} username={username} />
       <BoardForm />
-      <div className="todo_tab">
-        <div onClick={handleTotalTodo}>total todo</div>
-        <div onClick={handleMyTodo}>my todo</div>
-      </div>
+      {localStorage.getItem("token") ? (
+        <div className="todo_tab">
+          <div onClick={handleTotalTodo}>total list</div>
+          <div onClick={handleMyTodo}>my list</div>
+        </div>
+      ) : (
+        <div></div>
+      )}
       <div>
         <BoardInfoList
           className="board_list"
