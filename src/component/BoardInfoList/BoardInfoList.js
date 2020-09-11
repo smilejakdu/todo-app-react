@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import BoardInfo from "../BoardInfo/BoardInfo";
 import { BoardList } from "./BoardInfoList.styled";
 
-const BoardInfoList = ({ username, data, onRemove, onUpdate }) => {
-  console.log("BoardInfoList : ", data);
+const BoardInfoList = ({ username, data, onRemove }) => {
   const list = data.map((info) => (
     <BoardList>
       <BoardInfo
@@ -11,7 +10,6 @@ const BoardInfoList = ({ username, data, onRemove, onUpdate }) => {
         info={info}
         username={username}
         onRemove={onRemove}
-        onUpdate={onUpdate}
       />
     </BoardList>
   ));

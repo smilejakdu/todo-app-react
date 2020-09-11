@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../component/Header/Header";
 import request from "../../util/request";
-import axios from "axios";
-import "./Home.scss";
 import BoardForm from "../../component/BoardForm/BoardForm";
-import BoardInfoList from "../../component/BoardInfoList/BoardInfoList";
+import axios from "axios";
 import { NavLink } from "react-router-dom";
+import MyBoardInfoList from "../../component/MyBoardInfoList/MyBoardInfoList";
 
-const Home = () => {
+const Mypage = () => {
   const [username, setUsername] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [information, setInformation] = useState([]);
@@ -26,6 +25,7 @@ const Home = () => {
           } = res;
           setUsername(data);
           setIsAuthenticated(true);
+          myTodoListGet();
         })
         .catch((err) => {
           console.log("err : ", err);
@@ -33,9 +33,13 @@ const Home = () => {
     }
   }, []);
 
-  useEffect(() => {
+  const myTodoListGet = () => {
     request
-      .get("/todos/")
+      .get("/todos/mytodo", {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         let {
           data: { data },
@@ -45,7 +49,7 @@ const Home = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
 
   const handleRemove = (id) => {
     console.log("home handleRemove : ", id);
@@ -56,21 +60,7 @@ const Home = () => {
         },
       })
       .then((res) => {
-        handleGetData();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleGetData = () => {
-    request
-      .get("/todos/")
-      .then((res) => {
-        let {
-          data: { data },
-        } = res;
-        setInformation(data.data);
+        myTodoListGet();
       })
       .catch((err) => {
         console.log(err);
@@ -80,14 +70,14 @@ const Home = () => {
   const handleOnInputChange = (event) => {
     const query = event.target.value;
     if (!query) {
-      handleGetData();
+      myTodoListGet();
     } else {
       fetchSearchResults(query);
     }
   };
 
   const fetchSearchResults = (query) => {
-    const searchUrl = `/todos/search?query=${query}`;
+    const searchUrl = `/todos/mylistsearch?query=${query}`;
     request
       .get(searchUrl)
       .then((res) => {
@@ -134,7 +124,7 @@ const Home = () => {
         <div></div>
       )}
       <div>
-        <BoardInfoList
+        <MyBoardInfoList
           className="board_list"
           username={username}
           data={information}
@@ -145,4 +135,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Mypage;

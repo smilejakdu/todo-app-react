@@ -8,12 +8,6 @@ const BoardForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleClick();
-    }
-  };
-
   const handleClick = (e) => {
     let data = {
       title: title,
@@ -46,20 +40,18 @@ const BoardForm = () => {
               value={title}
               minRows={3}
               onChange={(e) => setTitle(e.target.value)}
-              onKeyPress={handleKeyPress}
               placeholder="TITLE"
               required
             />
           </div>
           <div>
-            <textarea
+            <TextareaAutosize
               type="text"
               name="content"
               rows="3"
               className="board_content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              onKeyPress={handleKeyPress}
               required
               placeholder="CONTENT"
             />

@@ -8,9 +8,9 @@ import {
   FormGroup,
   FormFieldInput,
   FormLabel,
-} from "./BoardInfo.styled";
+} from "./MyBoardInfo.styled";
 
-const BoardInfo = ({ key, info, onRemove, username }) => {
+const MyBoardInfo = ({ key, info, onRemove, username }) => {
   console.log("BoardInfo info : ", info);
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState("");
@@ -71,4 +71,4 @@ const BoardInfo = ({ key, info, onRemove, username }) => {
   );
 };
 
-export default BoardInfo;
+export default MyBoardInfo;

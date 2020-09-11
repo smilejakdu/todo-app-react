@@ -8,9 +8,7 @@ import {
 
 const Header = ({ isAuthenticated, username }) => {
   const logoutBtnClick = () => {
-    console.log(localStorage.getItem("token"));
     localStorage.removeItem("token");
-    console.log(localStorage.getItem("token"));
     window.location.reload();
   };
 
