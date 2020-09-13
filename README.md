@@ -7,6 +7,8 @@
 - jwt login
 - Rest API
 
+  https://github.com/smilejakdu/todo-app-django
+
 # Front
 
 - javascript
