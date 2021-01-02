@@ -12,6 +12,7 @@ const Header = ({ isAuthenticated, username }) => {
     window.location.reload();
   };
 
+
   return (
     <div>
       <HeaderBorder>

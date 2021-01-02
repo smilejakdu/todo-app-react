@@ -24,14 +24,6 @@ const Login = (props) => {
     }
   };
 
-  useEffect(() => {
-    console.log(props);
-    console.log(localStorage.getItem("token"));
-    if (localStorage.getItem("token")) {
-      props.history.push("/");
-    }
-  }, []);
-
   const handleClick = () => {
     request
       .post("/user/signin", {

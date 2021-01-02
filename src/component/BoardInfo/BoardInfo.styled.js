@@ -47,7 +47,6 @@ const TitleContentLabel = styled.div`
 const EmailBorder = styled.div`
   display: inline;
   color: ${palette.orange[7]};
-  font-style: border;
 `;
 
 const Date = styled.div`
@@ -117,14 +116,14 @@ const FormLabel = styled.label`
 `;
 
 export {
-  BoardBox,
-  BoardData,
-  BtnBorder,
-  BoardBtn,
-  EmailBorder,
-  TitleContentLabel,
-  Date,
-  FormGroup,
-  FormFieldInput,
-  FormLabel,
+    BoardBox,
+    BoardData,
+    BtnBorder,
+    BoardBtn,
+    EmailBorder,
+    TitleContentLabel,
+    Date,
+    FormGroup,
+    FormFieldInput,
+    FormLabel,
 };
