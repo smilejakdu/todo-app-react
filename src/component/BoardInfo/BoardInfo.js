@@ -15,18 +15,11 @@ const BoardInfo = ({key, info, onRemove, username, onUpdate}) => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [date, setDate] = useState("");
-
+    console.log(info)
 
     const handleRemove = useCallback(() => {
         if (localStorage.getItem("token")) {
             onRemove(info.id);
-        }
-    }, [])
-
-    const handleUpdate = useCallback(() => {
-        if (localStorage.getItem("token")) {
-            onUpdate(info.id)
-            setEditing((prev) => !prev)
         }
     }, [])
 
@@ -68,17 +61,12 @@ const BoardInfo = ({key, info, onRemove, username, onUpdate}) => {
                     <Date>{info.created_at}</Date>
                 </div>
             )}
-            {username === info.username ? (
+            {username === info.username && (
                 <>
                     <BtnBorder>
-                        <BoardBtn onClick={handleUpdate}>
-                            {editing ? "적용" : "수정"}
-                        </BoardBtn>
                         <BoardBtn onClick={handleRemove}>삭제</BoardBtn>
                     </BtnBorder>
                 </>
-            ) : (
-                <div></div>
             )}
         </BoardBox>
     );

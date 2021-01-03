@@ -6,11 +6,15 @@ import "./Home.scss";
 import BoardForm from "../../component/BoardForm/BoardForm";
 import BoardInfoList from "../../component/BoardInfoList/BoardInfoList";
 import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {addBoard} from "../../moduls/board";
 
 const Home = () => {
     const [username, setUsername] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [information, setInformation] = useState([]);
+    const [items, setItems] = useState(5);
+    const [preItems, setPreItems] = useState(0);
 
     useEffect(() => {
         if (localStorage.getItem("token")) {
@@ -34,20 +38,46 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
+        handleGetData();
+        window.addEventListener("scroll", infiniteScroll);
+        return () => {
+            // scroll event listener 해제
+            window.removeEventListener("scroll", infiniteScroll);
+        };
+    }, [items])
+
+
+    const handleGetData = () => {
         request
             .get("/todos/")
             .then((res) => {
                 let {
                     data: {data},
                 } = res;
-                setInformation(data.data);
+                const result = data.data.slice(preItems, items);
+                console.log(information);
+                setInformation([...information, ...result]);
             })
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
+    };
 
-    const handleRemove = (id) => {
+    const infiniteScroll = () => {
+        const {documentElement, body} = document;
+
+        const scrollHeight = Math.max(documentElement.scrollHeight, body.scrollHeight);
+        const scrollTop = Math.max(documentElement.scrollTop, body.scrollTop);
+        const clientHeight = documentElement.clientHeight;
+
+        if (scrollTop + clientHeight >= scrollHeight) {
+            setPreItems(items)
+            setItems(items + 5)
+            handleGetData();
+        }
+    };
+
+    const handleRemove = useCallback((id) => {
         console.log("home handleRemove : ", id);
         request
             .delete(`/todos/${id}`, {
@@ -61,38 +91,28 @@ const Home = () => {
             .catch((err) => {
                 console.log(err);
             });
-    };
+    }, [])
 
-
-    const handleUpdate = (id, title, content) => {
-        console.log("home handleUpdate : ", id);
-        request.post(`/todos/update/${id}`, {
+    const handlePost = useCallback((title, content) => {
+        let data = {
             title: title,
             content: content,
-        }).then((res) => {
-            console.log(res);
-            console.log(res.json);
-        }).then(res => {
-            handleGetData();
-        }).catch((err) => {
-            console.log(err);
-        })
-    }
+        };
 
-
-    const handleGetData = () => {
         request
-            .get("/todos/")
+            .post("/todos/", data, {
+                headers: {
+                    Authorization: `${localStorage.getItem("token")}`,
+                },
+            })
             .then((res) => {
-                let {
-                    data: {data},
-                } = res;
-                setInformation(data.data);
+                handleGetData();
             })
             .catch((err) => {
                 console.log(err);
             });
-    };
+    }, [])
+
 
     const handleOnInputChange = (event) => {
         const query = event.target.value;
@@ -126,23 +146,23 @@ const Home = () => {
                 <Header isAuthenticated={isAuthenticated} username={username}/>
             </div>
             <div className="form_border">
-                <BoardForm/>
+                <BoardForm onPost={handlePost}/>
             </div>
-            <div class="form__group field">
+            <div className="form__group field">
                 <input
                     type="input"
-                    class="form__field"
+                    className="form__field"
                     placeholder="Name"
                     name="name"
                     id="name"
                     onChange={handleOnInputChange}
                     required
                 />
-                <label for="name" class="form__label">
+                <label for="name" className="form__label">
                     Search
                 </label>
             </div>
-            {localStorage.getItem("token") ? (
+            {localStorage.getItem("token") && (
                 <div className="todo_tab">
                     <NavLink className="nav_border" to="/" exact={true}>
                         total list
@@ -151,8 +171,6 @@ const Home = () => {
                         my list
                     </NavLink>
                 </div>
-            ) : (
-                <div></div>
             )}
             <div>
                 <BoardInfoList
@@ -160,7 +178,6 @@ const Home = () => {
                     username={username}
                     data={information}
                     onRemove={handleRemove}
-                    onUpdate={handleUpdate}
                 />
             </div>
         </div>
