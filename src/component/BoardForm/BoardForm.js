@@ -3,8 +3,6 @@ import "./BoardForm.scss";
 import TextareaAutosize from "react-textarea-autosize";
 import request from "../../util/request";
 import Modal from "../../component/Modal/Modal";
-import {useDispatch} from "react-redux";
-import {addBoard} from "../../moduls/board";
 
 const BoardForm = ({onPost}) => {
     const [title, setTitle] = useState("");

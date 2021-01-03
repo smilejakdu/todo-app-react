@@ -6,8 +6,6 @@ import "./Home.scss";
 import BoardForm from "../../component/BoardForm/BoardForm";
 import BoardInfoList from "../../component/BoardInfoList/BoardInfoList";
 import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {addBoard} from "../../moduls/board";
 
 const Home = () => {
     const [username, setUsername] = useState("");
@@ -30,6 +28,7 @@ const Home = () => {
                     } = res;
                     setUsername(data);
                     setIsAuthenticated(true);
+                    handleGetData();
                 })
                 .catch((err) => {
                     console.log("err : ", err);
@@ -38,14 +37,12 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        handleGetData();
         window.addEventListener("scroll", infiniteScroll);
         return () => {
             // scroll event listener 해제
             window.removeEventListener("scroll", infiniteScroll);
         };
-    }, [items])
-
+    }, [information.length, items])
 
     const handleGetData = () => {
         request
@@ -55,7 +52,6 @@ const Home = () => {
                     data: {data},
                 } = res;
                 const result = data.data.slice(preItems, items);
-                console.log(information);
                 setInformation([...information, ...result]);
             })
             .catch((err) => {
@@ -65,7 +61,6 @@ const Home = () => {
 
     const infiniteScroll = () => {
         const {documentElement, body} = document;
-
         const scrollHeight = Math.max(documentElement.scrollHeight, body.scrollHeight);
         const scrollTop = Math.max(documentElement.scrollTop, body.scrollTop);
         const clientHeight = documentElement.clientHeight;

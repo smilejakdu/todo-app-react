@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import BoardInfo from "../BoardInfo/BoardInfo";
 import {BoardList} from "./BoardInfoList.styled";
-import {useDispatch, useSelector} from "react-redux";
 
 const BoardInfoList = ({username, data, onRemove, onUpdate}) => {
     const list = data.map((info) => (
